@@ -1,0 +1,39 @@
+{
+  "name": "minxel",
+  "version": "1.0.0",
+  "description": "minxel is a small-scale web-based painting app designed to make it easy to get new ideas in motion early, particularly for storyboarding/comics planning and color theory training. It features a small toolset designed to keep work focused but with exactly enough features to get things moving.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyan-oj/minxel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cyan-oj/minxel/issues"
+  },
+  "homepage": "https://github.com/cyan-oj/minxel#readme",
+  "dependencies": {
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
+    "babel-loader": "^8.2.5",
+    "canvas": "^2.10.1",
+    "core-js": "^3.25.1",
+    "css-loader": "^6.7.1",
+    "mini-css-extract-plugin": "^2.6.1",
+    "regenerator-runtime": "^0.13.9",
+    "sass": "^1.54.9",
+    "sass-loader": "^13.0.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
