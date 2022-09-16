@@ -47,6 +47,9 @@ minxel is a small-scale web-based painting app designed to make it easy to get n
 - the history should be a user-defined number of actions
 	- warn the user that a too-large history may affect performance
 
+# Basic wireframe:
+![minxel UI wireframe](wf.PNG)
+
 
 # Timeline
 ### Friday
