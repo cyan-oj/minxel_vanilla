@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
   foreground.style.backgroundColor = "red";
   const background = document.getElementById("swatch2");
   background.style.backgroundColor = "black";
+  
+  let swatchProps = {}; // for color buttons
 
   const supportsPointerEvents = window.PointerEvent;
 
@@ -18,11 +20,27 @@ document.addEventListener("DOMContentLoaded", function () {
     eraser: 0x20,
   };
 
-  let swatchProps = {}; // for color buttons
+  const pointerEvents = [
+    'pointerdown',
+    'pointerup',
+    'pointercancel',
+    'pointermove',
+    'pointerover',
+    'pointerout',
+    'pointerenter',
+    'pointerleave',
+    'gotpointercapture',
+    'lostpointercapture'
+  ];
+
 
   let prevPos = {
     x: 0,
     y: 0
+  }
+
+  function draw(e) {
+    
   }
 
 });
