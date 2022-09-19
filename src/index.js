@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let button = document.createElement("button");
         button.className = "swatch";
         button.id = `swatch${i + 1}`;
-        // button.color = colors[i];
+        button.color = colors[i];
         button.style.backgroundColor = colors[i]
         paletteBox.appendChild(button);
       }
@@ -39,9 +39,16 @@ document.addEventListener("DOMContentLoaded", function () {
   paletteBox.addEventListener('click', (e) => {
     e.preventDefault();
     console.log("changing colors")
-    currentPalette.setActiveColor(e.target.backgroundColor);
+    currentPalette.setActiveColor(e.target.color);
     console.log(currentPalette.activeColor);
   });
+
+  const buttonMap = {
+    tip: 0x1, // 
+    barrel: 0x2,
+    middle: 0x4,
+    eraser: 0x20,
+  };
 
   let options = {
     width: 800,
@@ -51,6 +58,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const workSpace = new WorkSpace(options); 
+
+  // document.addEventListener("mousemove", workSpace.draw);
+  // document.addEventListener("mousedown", workSpace.setPosition);
+  // document.addEventListener("mouseenter", workSpace.setPosition);
     
   // const baseCanvas = createCanvas(800, 800);
   // baseCanvas.id = "can1"
@@ -74,33 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // saveCanvas.setAttribute('download', 'canvas.png');
   
-  
-  // const foreground = document.getElementById("swatch1");
-  // foreground.style.backgroundColor = "red";
-  // const background = document.getElementById("swatch2");
-  // background.style.backgroundColor = "black";
-  
-  //let activeColor = currentPalette.colors[0]
-  
-
-
-
-  
-  
   let swatchProps = {}; // for color buttons
 
   const supportsPointerEvents = window.PointerEvent;
-
-  const buttonMap = {
-    tip: 0x1, // 
-    barrel: 0x2,
-    middle: 0x4,
-    eraser: 0x20,
-  };
-
-  document.addEventListener("mousemove", draw);
-  document.addEventListener("mousedown", setPosition);
-  document.addEventListener("mouseenter", setPosition);
-
   
 });
