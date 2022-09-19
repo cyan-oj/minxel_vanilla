@@ -4,6 +4,7 @@ class Palette {
     this.name = name;
     this.colors = colors;
     this.size = colors.length;
+    this.activeColor = this.colors[0];
   }
 
 
@@ -12,4 +13,11 @@ class Palette {
   addColor(color) {
     this.colors.push(color);
   };   
+
+  setActiveColor(color) {
+    console.log("from Palette changing color")
+    this.activeColor = color;
+  };
 }
+
+module.exports = Palette;

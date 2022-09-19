@@ -1,6 +1,7 @@
 //const CanvasUtil = require("./scripts/canvas.js");
 const docBody = document.getElementsByTagName("body");
-const { createCanvas } = require('canvas');
+const WorkSpace = require('./scripts/workspace');
+const Palette = require("./scripts/palette.js");
 const fs = require("fs");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -8,47 +9,77 @@ document.addEventListener("DOMContentLoaded", function () {
   // canvas.width = 800;
   // canvas.height = 800;
   // const context = canvas.getContext("2d");
-  // let canvasProps = {
-  //   name: "home",
-  //   fill: "white",
-  //   width: 800,
-  //   height: 800
-  // }
 
-  const baseCanvas = createCanvas(800, 800);
-  const context = baseCanvas.getContext("2d");
-  docBody[0].appendChild(baseCanvas);
-  const paletteBox = document.getElementById("palettebox");
-
-  const frameColors = [
+  const testColors = [
     "red",
     "black",
-    "white"
+    "white",
+    "green"
   ];
+  
+  const currentPalette = new Palette("test", testColors);
 
-  function loadPalette(colors) {
+  let options = {
+    width: 800,
+    height: 800,
+    palette: currentPalette
+  }
+    
+  // const baseCanvas = createCanvas(800, 800);
+  // baseCanvas.id = "can1"
+  // console.log("outside saveFile");
+  // console.log(baseCanvas);
+  // const context = baseCanvas.getContext("2d");
+  // docBody[0].appendChild(baseCanvas);
+  // const paletteBox = document.getElementById("palettebox");
+  
+  // function saveFile(canvasID) { // need to bind to context?
+  //   const canvas = document.getElementById(canvasID)
+  //   console.log("inside saveFile")
+  //   console.log(canvas);
+  //   const buffer = canvas.toBuffer("image/png");
+  //   fs.writeFileSync('./createdImages/image.png', buffer);
+  // } 
+  
+  // const saveCanvas = document.createElement("button");
+  // saveCanvas.addEventListener('click', saveFile(baseCanvas.id));
+  // paletteBox.appendChild(saveCanvas);
+  
+  // saveCanvas.setAttribute('download', 'canvas.png');
+  
+  
+  // const foreground = document.getElementById("swatch1");
+  // foreground.style.backgroundColor = "red";
+  // const background = document.getElementById("swatch2");
+  // background.style.backgroundColor = "black";
+  
+  //let activeColor = currentPalette.colors[0]
+  
+  paletteBox.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log("changing colors")
+    currentPalette.setActiveColor(e.target.color);
+    console.log(currentPalette.activeColor);
+  });
+
+  function loadPalette() {
+    colors = currentPalette.colors;
+
+
     if (colors.length > 0) {
       for (let i = 0; i < colors.length; i ++) {
         let button = document.createElement("button");
         button.className = "swatch";
-        button.id = `swatch${i + 1}`
+        button.id = `swatch${i + 1}`;
+        button.color = colors[i];
         button.style.backgroundColor = colors[i]
         paletteBox.appendChild(button);
       }
     }
   }  
-
-  loadPalette(frameColors);
-
-  const saveCanvas = document.createElement("button");
-  // saveCanvas.setAttribute('download', 'canvas.png');
-  saveCanvas.addEventListener('click', saveFile);
-  paletteBox.appendChild(saveCanvas);
-
-  // const foreground = document.getElementById("swatch1");
-  // foreground.style.backgroundColor = "red";
-  // const background = document.getElementById("swatch2");
-  // background.style.backgroundColor = "black";
+  loadPalette(currentPalette);
+  
+  
   
   let swatchProps = {}; // for color buttons
 
@@ -60,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     middle: 0x4,
     eraser: 0x20,
   };
-
+  
   const pointerEvents = [
     'pointerdown',
     'pointerup',
@@ -75,22 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
 
-  // let prevPos = {
-  //   x: 0,
-  //   y: 0
-  // }
-
-  // function draw(evt) {
-  //   let point = ""
-
-  //   let screenPos = {
-  //     x: evt.clientX,
-  //     y: evt.clientY
-  //   }
-
-
-  // }
-
   document.addEventListener("mousemove", draw);
   document.addEventListener("mousedown", setPosition);
   document.addEventListener("mouseenter", setPosition);
@@ -99,16 +114,21 @@ document.addEventListener("DOMContentLoaded", function () {
     x: 0,
     y: 0
   };
-
+  
   function setPosition(e) {
-    pos.x = e.clientX;
-    pos.y = e.clientY;
+    let boundingBox = baseCanvas.getBoundingClientRect();
+    pos.x = e.clientX - boundingBox.left;
+    pos.y = e.clientY - boundingBox.top;
+  }
+
+  function setColor() {
+
   }
 
   function draw(e) {
     if (e.buttons !== 1) return; // exits early if mouse is not pressed
-    let color = document.getElementById("hexinput").value;
-
+    //let color = document.getElementById("hexinput").value; // choose color 
+    let color = currentPalette.activeColor;
     context.beginPath();
     context.lineWidth = 20;
     context.lineCap = "round";
@@ -117,11 +137,20 @@ document.addEventListener("DOMContentLoaded", function () {
     setPosition(e);
     context.lineTo(pos.x, pos.y); // line end position
     context.stroke(); 
+    
+    // const pointerEvents = [ //pointer events for pressure
+    //   'pointerdown',
+    //   'pointerup',
+    //   'pointercancel',
+    //   'pointermove',
+    //   'pointerover',
+    //   'pointerout',
+    //   'pointerenter',
+    //   'pointerleave',
+    //   'gotpointercapture',
+    //   'lostpointercapture'
+    // ];
   }
-
-  function saveFile() {
-    const buffer = baseCanvas.toBuffer("image/png");
-    fs.writeFileSync('./image.png', buffer);
-  } 
+  
 
 });
