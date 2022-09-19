@@ -11,7 +11,10 @@ class Palette {
   // color options - rgba value, desired color position from 0-15
   
   addColor(color) {
-    this.colors.push(color);
+    console.log("from Palette adding color")
+    if (this.colors.length < 15 ) {
+      this.colors.push(color);
+    }
   };   
 
   setActiveColor(color) {

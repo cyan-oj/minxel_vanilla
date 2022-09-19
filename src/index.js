@@ -3,6 +3,7 @@ const docBody = document.getElementsByTagName("body");
 const WorkSpace = require('./scripts/workspace');
 const Palette = require("./scripts/palette.js");
 const fs = require("fs");
+const { toBuffer } = require('canvas');
 
 document.addEventListener("DOMContentLoaded", function () {
   // const canvas = document.getElementById("canvas");
@@ -14,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const testColors = [
     "red",
     "black",
-    "white",
     "green"
   ];
   
@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     console.log("changing colors")
     currentPalette.setActiveColor(e.target.color);
-    console.log(currentPalette.activeColor);
   });
 
   const buttonMap = {
@@ -58,34 +57,30 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const workSpace = new WorkSpace(options); 
+  
+  function saveFile() { // need to bind to context?
+    debugger;
+    const canvas = document.getElementById("base")
+    console.log("inside saveFile")
+    console.log(canvas);
 
-  // document.addEventListener("mousemove", workSpace.draw);
-  // document.addEventListener("mousedown", workSpace.setPosition);
-  // document.addEventListener("mouseenter", workSpace.setPosition);
-    
-  // const baseCanvas = createCanvas(800, 800);
-  // baseCanvas.id = "can1"
-  // console.log("outside saveFile");
-  // console.log(baseCanvas);
-  // const context = baseCanvas.getContext("2d");
-  // docBody[0].appendChild(baseCanvas);
-  // const paletteBox = document.getElementById("palettebox");
-  
-  // function saveFile(canvasID) { // need to bind to context?
-  //   const canvas = document.getElementById(canvasID)
-  //   console.log("inside saveFile")
-  //   console.log(canvas);
-  //   const buffer = canvas.toBuffer("image/png");
-  //   fs.writeFileSync('./createdImages/image.png', buffer);
-  // } 
-  
-  // const saveCanvas = document.createElement("button");
-  // saveCanvas.addEventListener('click', saveFile(baseCanvas.id));
-  // paletteBox.appendChild(saveCanvas);
-  
-  // saveCanvas.setAttribute('download', 'canvas.png');
-  
-  let swatchProps = {}; // for color buttons
+    //canvas.toBlob()
+    const buffer = canvas.toBuffer("image/png");
+    fs.writeFileSync('./createdImages/image.png', buffer);
+
+    // toBlob(callback, type)
+  } 
+
+  const addColor = document.getElementById("addcolor");
+  const hexValue = document.getElementById("hexinput");
+
+  addColor.addEventListener("click", (e) => {
+    currentPalette.addColor(hexValue.value);
+    loadPalette();
+  });
+
+  const saveButton = document.getElementById("save");
+  saveButton.addEventListener("click", saveFile);
 
   const supportsPointerEvents = window.PointerEvent;
   
