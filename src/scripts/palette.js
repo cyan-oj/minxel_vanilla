@@ -10,10 +10,6 @@ class Palette {
   // color options - rgba value, desired color position from 0-15
   
   addColor(color) {
-    
-  }
-}
-
-let color = { 
-  
+    this.colors.push(color);
+  };   
 }
