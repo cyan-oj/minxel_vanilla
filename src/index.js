@@ -1,49 +1,84 @@
 //const CanvasUtil = require("./scripts/canvas.js");
 const docBody = document.getElementsByTagName("body");
-const WorkSpace = require('./scripts/workspace');
+const WorkSpace = require("./scripts/workspace");
 const Palette = require("./scripts/palette.js");
+const BrushCollection = require("./scripts/brushcollection.js");
 const fs = require("fs");
 const { toBuffer } = require('canvas');
 
 document.addEventListener("DOMContentLoaded", function () {
 
   const paletteBox = document.getElementById("palettebox");
+  const brushBox = document.getElementById("brushbox");
 
   const defaultColors = [
     "white",
     "black",
     "red"
   ];
-
+  
   // const defaultPalette = new Palette("default", defaultColors);
   // localStorage.setItem("palette", JSON.stringify(defaultPalette)); 
   // const currentPalette = JSON.parse(localStorage.getItem("palette"));
+  
+  // debugger;
+  // console.log(defaultPalette);
+  // console.log(currentPalette);
 
   const currentPalette = new Palette("default", defaultColors);
+  const brushCollection = new BrushCollection("default");
+
+  brushCollection.addBrush({size: 2});
+  brushCollection.addBrush({size: 30});
   
   function loadPalette() {
     colors = currentPalette.colors;
     if (colors.length > 0) {
       paletteBox.textContent = '';
-      for (let i = 0; i < colors.length; i ++) {
+      i = 1;
+      colors.forEach((color) => {
         let button = document.createElement("button");
         button.className = "swatch";
-        button.id = `swatch${i + 1}`;
-        button.color = colors[i];
-        button.style.backgroundColor = colors[i]
+        button.id = `swatch${i}`;
+        button.color = color;
+        button.style.backgroundColor = color;
         paletteBox.appendChild(button);
-      }
+        i++;
+      });
     }
   }  
 
-  loadPalette(currentPalette);
+  loadPalette();
 
   paletteBox.addEventListener('click', (e) => {
-    //debugger;
     e.preventDefault();
     console.log("changing colors")
     currentPalette.setActiveColor(e.target.color);
   });
+
+  function loadBrushBox() {
+    brushes = brushCollection.brushes;
+    if (brushes.length > 0) {
+      brushBox.textContent = '';
+      i = 1;
+      brushes.forEach((brush) => {
+        let button = document.createElement("button");
+        button.className = "brush";
+        button.id = `brush${i}`;
+        button.innerText = `${brush.size}`;
+        brushBox.appendChild(button);
+        i++;
+      });
+    }
+  }
+
+  loadBrushBox();
+
+//   brushBox.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     console.log("changing size");
+//     //workSpace.brush = brushCollection.brushes[]
+//  }),
 
   const buttonMap = {
     tip: 0x1, // 
@@ -56,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     width: 800,
     height: 800,
     palette: currentPalette,
+    brush: brushCollection.brushes[0],
     parent: docBody[0]
   }
 
