@@ -60,11 +60,12 @@ document.addEventListener("DOMContentLoaded", function () {
     brushes = brushCollection.brushes;
     if (brushes.length > 0) {
       brushBox.textContent = '';
-      i = 1;
+      i = 0;
       brushes.forEach((brush) => {
         let button = document.createElement("button");
         button.className = "brush";
         button.id = `brush${i}`;
+        button.data = i;
         button.innerText = `${brush.size}`;
         brushBox.appendChild(button);
         i++;
@@ -74,11 +75,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadBrushBox();
 
-//   brushBox.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     console.log("changing size");
-//     //workSpace.brush = brushCollection.brushes[]
-//  }),
+  brushBox.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log("changing size");
+    workSpace.brush = brushCollection.brushes[e.target.data];
+ });
 
   const buttonMap = {
     tip: 0x1, // 
@@ -117,6 +118,15 @@ document.addEventListener("DOMContentLoaded", function () {
     currentPalette.addColor(hexValue.value);
     loadPalette();
   });
+
+  const changeSize = document.getElementById("brushsize");
+  const brushSize = document.getElementById("size");
+
+  changeSize.addEventListener("click", (e) => {
+    workSpace.brush.size = brushSize.value;
+  });
+
+
 
   const saveButton = document.getElementById("save");
   saveButton.addEventListener("click", saveFile);
