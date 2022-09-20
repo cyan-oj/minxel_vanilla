@@ -111,22 +111,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // toBlob(callback, type)
   } 
 
-  const addColor = document.getElementById("addcolor");
+  const brushSettings = document.getElementById("brushsettings");
   const hexValue = document.getElementById("hexinput");
-
-  addColor.addEventListener("click", (e) => {
-    currentPalette.addColor(hexValue.value);
-    loadPalette();
-  });
-
-  const changeSize = document.getElementById("brushsize");
   const brushSize = document.getElementById("size");
 
-  changeSize.addEventListener("click", (e) => {
-    workSpace.brush.size = brushSize.value;
+  brushSettings.addEventListener("click", (e) => {
+    switch(e.target.id) {
+      case "addcolor":
+        currentPalette.addColor(hexValue.value);
+        loadPalette();
+        break;
+      case "brushsize":
+        workSpace.brush.size = brushSize.value;
+        break;
+      default:
+        console.log("no brushsettings cases hit")
+    }
   });
-
-
 
   const saveButton = document.getElementById("save");
   saveButton.addEventListener("click", saveFile);

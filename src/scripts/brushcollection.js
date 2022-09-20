@@ -7,7 +7,9 @@ class BrushCollection {
   }
 
   addBrush(properties) {
-    this.brushes.push(new Brush(properties));
+    if (this.brushes.length < 64) {
+      this.brushes.push(new Brush(properties));
+    }
   }  
 }
 

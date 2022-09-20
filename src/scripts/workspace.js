@@ -11,7 +11,6 @@ class WorkSpace {
 
     this.palette = options.palette;
     this.brush = options.brush;
-    debugger;
     this.selected = true;
     this.penPos = {
       x: 0,
