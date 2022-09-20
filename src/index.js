@@ -7,17 +7,13 @@ const fs = require("fs");
 const { toBuffer } = require('canvas');
 
 document.addEventListener("DOMContentLoaded", function () {
-
+  // set up palette and load defaults if not previous data
   const paletteBox = document.getElementById("palettebox");
-  const brushBox = document.getElementById("brushbox");
-
-  const defaultColors = [
-    "white",
-    "black",
-    "red"
-  ];
   
-  const defaultPalette = new Palette({name: "default", colors: defaultColors});
+  const defaultPalette = new Palette({
+    name: "default", 
+    colors: ["black", "white", "red"]
+  });
 
   if (!localStorage.getItem("palette")) {
     localStorage.setItem("palette", JSON.stringify(defaultPalette)); 
@@ -26,13 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const paletteJSON = JSON.parse(localStorage.getItem("palette"));
   const currentPalette = new Palette(paletteJSON);
 
-  //const currentPalette = new Palette("default", defaultColors);
-  const brushCollection = new BrushCollection("default");
-
-  brushCollection.addBrush({size: 2});
-  brushCollection.addBrush({size: 30});
-  
-  function loadPalette() {
+  function loadPalette() { // resets palette box
     colors = currentPalette.colors;
     localStorage.setItem("palette", JSON.stringify(currentPalette));
     if (colors.length > 0) {
@@ -49,17 +39,42 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }  
-
   loadPalette();
-
-  paletteBox.addEventListener('click', (e) => {
+  
+  paletteBox.addEventListener('click', (e) => { // change color on click
     e.preventDefault();
     console.log("changing colors")
     currentPalette.setActiveColor(e.target.color);
   });
+  
+  const brushBox = document.getElementById("brushbox");
+
+  if (!localStorage.getItem("brushcollection")) {
+    localStorage.setItem("brushcollection", JSON.stringify({
+      name: "default",
+      brushes: [1, 2, 15, 50]
+    }));
+  }
+  
+  const savedBrushSettings = JSON.parse(localStorage.getItem("brushcollection"));
+
+  const brushCollection = new BrushCollection({name: "default"})
+
+  savedBrushSettings.brushes.forEach((brush) => {
+    brushCollection.addBrush({size: brush});
+  })
 
   function loadBrushBox() {
     let brushes = brushCollection.brushes;
+    let brushSizes = [];
+    brushCollection.brushes.forEach((brush) => {
+      brushSizes.unshift(brush.size);
+    });
+
+    localStorage.setItem("brushcollection", JSON.stringify({
+      name: brushCollection.name,
+      brushes: brushSizes
+    }))
     if (brushes.length > 0) {
       brushBox.textContent = '';
       i = 0;
@@ -74,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }
-
   loadBrushBox();
 
   brushBox.addEventListener('click', (e) => {
