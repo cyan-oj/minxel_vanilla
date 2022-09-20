@@ -10,7 +10,7 @@ class WorkSpace {
     options.parent.appendChild(this.base);
 
     this.palette = options.palette;
-    this.brush = options.brush;
+    this.brush = Object.assign({}, options.brush);
     this.selected = true;
     this.penPos = {
       x: 0,

@@ -1,8 +1,8 @@
 // palette class, holds a name, a list of colors and their postitions, and someday metadata about the user who created it
 class Palette {
-  constructor(name = "untitled", colors = []) {
-    this.name = name;
-    this.colors = colors;
+  constructor(properties) {
+    this.name = properties.name;
+    this.colors = properties.colors;
     this.activeColor = this.colors[0];
   }
 

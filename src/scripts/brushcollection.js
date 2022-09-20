@@ -8,7 +8,7 @@ class BrushCollection {
 
   addBrush(properties) {
     if (this.brushes.length < 64) {
-      this.brushes.push(new Brush(properties));
+      this.brushes.unshift(new Brush(properties));
     }
   }  
 }

@@ -17,15 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
     "red"
   ];
   
-  // const defaultPalette = new Palette("default", defaultColors);
-  // localStorage.setItem("palette", JSON.stringify(defaultPalette)); 
-  // const currentPalette = JSON.parse(localStorage.getItem("palette"));
-  
-  // debugger;
-  // console.log(defaultPalette);
-  // console.log(currentPalette);
+  const defaultPalette = new Palette({name: "default", colors: defaultColors});
 
-  const currentPalette = new Palette("default", defaultColors);
+  if (!localStorage.getItem("palette")) {
+    localStorage.setItem("palette", JSON.stringify(defaultPalette)); 
+  }
+
+  const paletteJSON = JSON.parse(localStorage.getItem("palette"));
+  const currentPalette = new Palette(paletteJSON);
+
+  //const currentPalette = new Palette("default", defaultColors);
   const brushCollection = new BrushCollection("default");
 
   brushCollection.addBrush({size: 2});
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   function loadPalette() {
     colors = currentPalette.colors;
+    localStorage.setItem("palette", JSON.stringify(currentPalette));
     if (colors.length > 0) {
       paletteBox.textContent = '';
       i = 1;
@@ -57,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function loadBrushBox() {
-    brushes = brushCollection.brushes;
+    let brushes = brushCollection.brushes;
     if (brushes.length > 0) {
       brushBox.textContent = '';
       i = 0;
@@ -123,6 +125,12 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       case "brushsize":
         workSpace.brush.size = brushSize.value;
+        break;
+      case "savebrush":
+        brushCollection.addBrush({
+          size: brushSize.value
+        })
+        loadBrushBox();
         break;
       default:
         console.log("no brushsettings cases hit")
