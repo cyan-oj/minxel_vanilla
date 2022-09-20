@@ -6,23 +6,25 @@ const fs = require("fs");
 const { toBuffer } = require('canvas');
 
 document.addEventListener("DOMContentLoaded", function () {
-  // const canvas = document.getElementById("canvas");
-  // canvas.width = 800;
-  // canvas.height = 800;
-  // const context = canvas.getContext("2d");
+
   const paletteBox = document.getElementById("palettebox");
 
-  const testColors = [
-    "red",
+  const defaultColors = [
+    "white",
     "black",
-    "green"
+    "red"
   ];
-  
-  const currentPalette = new Palette("test", testColors);
+
+  // const defaultPalette = new Palette("default", defaultColors);
+  // localStorage.setItem("palette", JSON.stringify(defaultPalette)); 
+  // const currentPalette = JSON.parse(localStorage.getItem("palette"));
+
+  const currentPalette = new Palette("default", defaultColors);
   
   function loadPalette() {
     colors = currentPalette.colors;
     if (colors.length > 0) {
+      paletteBox.textContent = '';
       for (let i = 0; i < colors.length; i ++) {
         let button = document.createElement("button");
         button.className = "swatch";
@@ -37,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loadPalette(currentPalette);
 
   paletteBox.addEventListener('click', (e) => {
+    //debugger;
     e.preventDefault();
     console.log("changing colors")
     currentPalette.setActiveColor(e.target.color);
