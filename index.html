@@ -29,18 +29,16 @@
     </div>
     
     <div id="brushsettings" class="toolbox">
-      <canvas id="brushDisplay" width="200" height="200"></canvas>
+      <canvas id="brushDisplay" width="160" height="240"></canvas>
       <div class="slider">
         <input id="brushSlider" type="range" min="0" max="200" value="100" oninput="sizeDisplay.innerText = this.value">
         <p id="sizeDisplay"></p>
       </div>
-      <!-- <input id="size" placeholder="brush size">
-      <button id="brushsize" class="settingsbutton">Set Brush Size</button> -->
       <button id="savebrush" class="settingsbutton">Save Settings as Preset</button>
-      <button id="reset" class="settingsbutton">Reset to Defaults</button>
     </div>
-
+    
     <div id="layerbox" class="toolbox">
+      <button id="reset" class="settingsbutton">Reset to Defaults</button>
       <button id="save" class="settingsbutton">save</button>
     </div>
   </div>

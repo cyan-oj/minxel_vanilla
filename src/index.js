@@ -154,13 +154,13 @@ function saveFile() { // need to bind to context?
 
 function setBrushDisplay() {
   brushSlider.value = Number(workSpace.brush.size);
-  let radius = Number(workSpace.brush.size)/2;
+  let radius = Math.ceil(Number(workSpace.brush.size))/2;
   let color = workSpace.palette.activeColor;
   bCtx.clearRect(0, 0, 200, 200)
   bCtx.beginPath();
   bCtx.fillStyle = color;
   //debugger;
-  bCtx.arc(100, 100, radius, 0, 2*Math.PI);
+  bCtx.arc(80, 80, radius, 0, 2*Math.PI);
   bCtx.fill();
 }
 
@@ -205,6 +205,9 @@ toolboxes.addEventListener("click", (e) => {
       break;
       case "reset":
         localStorage.clear();
+        loadBrushBox();
+        loadPalette();
+        setBrushDisplay();
       break;
     default:
       console.log("no brushsettings cases hit")
