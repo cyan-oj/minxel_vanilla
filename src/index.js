@@ -14,7 +14,7 @@ const bCtx = brushDisplay.getContext('2d');
 
 const brushSettings = document.getElementById("brushsettings");
 const hexValue = document.getElementById("hexinput");
-const brushSize = document.getElementById("size");
+const brushSize = document.getElementById("brushSize");
 
 const saveButton = document.getElementById("save");
 saveButton.addEventListener("click", saveFile);
@@ -152,14 +152,15 @@ function setBrushDisplay() {
   bCtx.fill();
 }
 
-brushSettings.addEventListener("click", (e) => {
+brushSettings.addEventListener("change", (e) => {
+  //debugger;
   switch(e.target.id) {
     case "addcolor":
       currentPalette.addColor(hexValue.value);
       loadPalette();
       break;
-    case "brushsize":
-      debugger;
+    case "brushSlider":
+      //debugger;
       workSpace.brush.size = Number(brushSize.value);
       loadBrushBox();
       setBrushDisplay();

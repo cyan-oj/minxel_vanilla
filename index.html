@@ -17,8 +17,13 @@
       <canvas id="brushDisplay" width="200" height="200"></canvas>
       <input id="hexinput" placeholder="hex id">
       <button id="addcolor" class="settingsbutton">Add Color</button>
-      <input id="size" placeholder="brush size">
-      <button id="brushsize" class="settingsbutton">Set Brush Size</button>
+
+      <div class="slider">
+        <input id="brushSlider" type="range" min="0" max="200" value="100" oninput="brushSize.value = this.value">
+        <input id="brushSize" class="displayInput" value="100">
+      </div>
+      <!-- <input id="size" placeholder="brush size">
+      <button id="brushsize" class="settingsbutton">Set Brush Size</button> -->
       <button id="savebrush" class="settingsbutton">Save Settings as Preset</button>
       <button id="reset" class="settingsbutton">Reset to Defaults</button>
     </div>
