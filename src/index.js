@@ -12,12 +12,16 @@ const brushBox = document.getElementById("brushbox");
 const brushDisplay = document.getElementById("brushDisplay");
 const bCtx = brushDisplay.getContext('2d');
 
+const brushSettings = document.getElementById("brushsettings");
+const hexValue = document.getElementById("hexinput");
+const brushSize = document.getElementById("size");
 
 const saveButton = document.getElementById("save");
 saveButton.addEventListener("click", saveFile);
 
 const supportsPointerEvents = window.PointerEvent;
 
+// set up default palette & brush box
 const defaultPalette = new Palette({
   name: "default", 
   colors: ["black", "white", "red"]
@@ -27,10 +31,25 @@ if (!localStorage.getItem("palette")) {
   localStorage.setItem("palette", JSON.stringify(defaultPalette)); 
 }
 
+if (!localStorage.getItem("brushcollection")) {
+  localStorage.setItem("brushcollection", JSON.stringify({
+    name: "default",
+    brushes: [1, 2, 15, 50]
+  }));
+}
+
+// load existing settings if any, defaults if none
 const paletteJSON = JSON.parse(localStorage.getItem("palette"));
 const currentPalette = new Palette(paletteJSON);
 
-function loadPalette() { // resets palette box
+const savedBrushSettings = JSON.parse(localStorage.getItem("brushcollection"));
+const brushCollection = new BrushCollection({name: "default"})
+
+savedBrushSettings.brushes.forEach((brush) => {
+  brushCollection.addBrush({size: brush});
+})
+
+function loadPalette() { // reset palette box display
   colors = currentPalette.colors;
   localStorage.setItem("palette", JSON.stringify(currentPalette));
   if (colors.length > 0) {
@@ -56,23 +75,7 @@ paletteBox.addEventListener('click', (e) => { // change color on click
   setBrushDisplay();
 });
 
-
-if (!localStorage.getItem("brushcollection")) {
-  localStorage.setItem("brushcollection", JSON.stringify({
-    name: "default",
-    brushes: [1, 2, 15, 50]
-  }));
-}
-
-const savedBrushSettings = JSON.parse(localStorage.getItem("brushcollection"));
-
-const brushCollection = new BrushCollection({name: "default"})
-
-savedBrushSettings.brushes.forEach((brush) => {
-  brushCollection.addBrush({size: brush});
-})
-
-function loadBrushBox() {
+function loadBrushBox() { // reset brush preset display
   let brushes = brushCollection.brushes;
   let brushSizes = [];
   brushCollection.brushes.forEach((brush) => {
@@ -108,7 +111,7 @@ brushBox.addEventListener('click', (e) => {
 });
 
 const buttonMap = {
-  tip: 0x1, // 
+  tip: 0x1, 
   barrel: 0x2,
   middle: 0x4,
   eraser: 0x20,
@@ -122,6 +125,7 @@ let options = {
   parent: docBody[0]
 }
 
+// set up initial canvas
 const workSpace = new WorkSpace(options); 
 
 function saveFile() { // need to bind to context?
@@ -137,25 +141,16 @@ function saveFile() { // need to bind to context?
   // toBlob(callback, type)
 } 
 
-toolboxes.addEventListener("click", (e) => {
-  switch(e.target.id) {
-
-  }
-})
-
-
 function setBrushDisplay() {
   let radius = Number(workSpace.brush.size)/2;
   let color = workSpace.palette.activeColor;
+  bCtx.clearRect(0, 0, 200, 200)
   bCtx.beginPath();
   bCtx.fillStyle = color;
-  bCtx.arc(0, 0, radius, 0, 2*Math.PI);
-  bCtx.stroke();
+  //debugger;
+  bCtx.arc(100, 100, radius, 0, 2*Math.PI);
+  bCtx.fill();
 }
-
-const brushSettings = document.getElementById("brushsettings");
-const hexValue = document.getElementById("hexinput");
-const brushSize = document.getElementById("size");
 
 brushSettings.addEventListener("click", (e) => {
   switch(e.target.id) {
