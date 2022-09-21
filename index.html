@@ -13,6 +13,8 @@
   <div id="toolboxes">
     <div id="palettebox" class="toolbox"></div> 
 
+    <div id="brushbox" class="toolbox"></div>
+
     <div id="colorSliders" style="display:none">
       <div class="slider">
         <input id="red" type="range" min="0" max="255" value="100">
@@ -26,13 +28,11 @@
       <button id="addcolor">add color</button>
     </div>
     
-    <div id="brushbox" class="toolbox">brushbox</div>
-    
     <div id="brushsettings" class="toolbox">
       <canvas id="brushDisplay" width="200" height="200"></canvas>
       <div class="slider">
-        <input id="brushSlider" type="range" min="0" max="200" value="100" oninput="brushSize.value = this.value">
-        <input id="brushSize" class="displayInput" value="100">
+        <input id="brushSlider" type="range" min="0" max="200" value="100" oninput="sizeDisplay.innerText = this.value">
+        <p id="sizeDisplay"></p>
       </div>
       <!-- <input id="size" placeholder="brush size">
       <button id="brushsize" class="settingsbutton">Set Brush Size</button> -->

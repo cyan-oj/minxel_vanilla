@@ -13,7 +13,6 @@ const brushDisplay = document.getElementById("brushDisplay");
 const bCtx = brushDisplay.getContext('2d');
 
 const toolboxes = document.getElementById("toolboxes");
-const brushSize = document.getElementById("brushSize");
 const sliders = document.getElementById("colorSliders");
 const red = document.getElementById("red");
 const green = document.getElementById("green");
@@ -138,12 +137,14 @@ let options = {
 // set up initial canvas
 const workSpace = new WorkSpace(options); 
 
+setBrushDisplay();
+
 function saveFile() { // need to bind to context?
   debugger;
   const canvas = document.getElementById("base")
   console.log("inside saveFile")
   console.log(canvas);
-
+  
   //canvas.toBlob()
   const buffer = canvas.toBuffer("image/png");
   fs.writeFileSync('./createdImages/image.png', buffer);
@@ -152,6 +153,7 @@ function saveFile() { // need to bind to context?
 } 
 
 function setBrushDisplay() {
+  brushSlider.value = Number(workSpace.brush.size);
   let radius = Number(workSpace.brush.size)/2;
   let color = workSpace.palette.activeColor;
   bCtx.clearRect(0, 0, 200, 200)
@@ -170,17 +172,18 @@ toolboxes.addEventListener("change", (e) => {
     case "green":
       const rgbString = (`rgb(${red.value}, ${green.value}, ${blue.value})`)
       workSpace.palette.activeColor = rgbString;
+      setBrushDisplay();
       loadPalette();
       break;
     case "brushSlider":
       //debugger;
-      workSpace.brush.size = Number(brushSize.value);
+      workSpace.brush.size = Number(brushSlider.value);
       loadBrushBox();
       setBrushDisplay();
       break;
-    default:
+      default:
       console.log("no brushsettings chagne cases hit")
-  }
+    }
 });
 
 toolboxes.addEventListener("click", (e) => {
@@ -189,19 +192,19 @@ toolboxes.addEventListener("click", (e) => {
     case "newcolor":
       sliders.style.display === "none" ? sliders.style.display = "block" : sliders.style.display = "none";
       break;
-    case "addcolor":
+      case "addcolor":
       const rgbString = (`rgb(${red.value}, ${green.value}, ${blue.value})`)
       currentPalette.addColor(rgbString);
       loadPalette();
       break;
     case "savebrush":
       brushCollection.addBrush({
-        size: Number(brushSize.value)
+        size: Number(brushSlider.value)
       })
       loadBrushBox();
       break;
-    case "reset":
-      localStorage.clear();
+      case "reset":
+        localStorage.clear();
       break;
     default:
       console.log("no brushsettings cases hit")
