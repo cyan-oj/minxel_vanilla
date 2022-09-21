@@ -13,8 +13,10 @@ const brushDisplay = document.getElementById("brushDisplay");
 const bCtx = brushDisplay.getContext('2d');
 
 const brushSettings = document.getElementById("brushsettings");
-const hexValue = document.getElementById("hexinput");
 const brushSize = document.getElementById("brushSize");
+const red = document.getElementById("red");
+const green = document.getElementById("green");
+const blue = document.getElementById("blue");
 
 const saveButton = document.getElementById("save");
 saveButton.addEventListener("click", saveFile);
@@ -24,7 +26,9 @@ const supportsPointerEvents = window.PointerEvent;
 // set up default palette & brush box
 const defaultPalette = new Palette({
   name: "default", 
-  colors: ["black", "white", "red"]
+  colors: [
+    "black", "white", "red"
+  ]
 });
 
 if (!localStorage.getItem("palette")) {
@@ -155,8 +159,11 @@ function setBrushDisplay() {
 brushSettings.addEventListener("change", (e) => {
   //debugger;
   switch(e.target.id) {
-    case "addcolor":
-      currentPalette.addColor(hexValue.value);
+    case "red":
+    case "blue":
+    case "green":
+      const rgbString = (`rgb(${red.value}, ${green.value}, ${blue.value})`)
+      workSpace.palette.activeColor = rgbString;
       loadPalette();
       break;
     case "brushSlider":
@@ -164,6 +171,17 @@ brushSettings.addEventListener("change", (e) => {
       workSpace.brush.size = Number(brushSize.value);
       loadBrushBox();
       setBrushDisplay();
+      break;
+    default:
+      console.log("no brushsettings chagne cases hit")
+  }
+})
+
+brushSettings.addEventListener("click", (e) => {
+  switch(e.target.id) {
+    case "addcolor":
+      currentPalette.addColor(rgb.value);
+      loadPalette();
       break;
     case "savebrush":
       brushCollection.addBrush({
