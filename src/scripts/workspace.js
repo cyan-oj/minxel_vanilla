@@ -3,7 +3,6 @@ const { createCanvas, } = require('canvas');
 class WorkSpace {
   constructor(options) {
     this.base = createCanvas(options.width, options.height);
-
     this.base.id = "base";
     this.context = this.base.getContext("2d");
 

@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./dist/main.css" />
-  <script src="./dist/main.js"></script>
+  <script src="./dist/main.js" defer></script>
   <title>oh no it's ugly</title>
 </head>
 <body>
@@ -14,8 +14,7 @@
     <div id="palettebox" class="toolbox"></div>
     <div id="brushbox" class="toolbox">brushbox</div>
     <div id="brushsettings" class="toolbox">
-      <div id="brushsize" class="brushprops"></div>
-      <div id="brushcolor" class="brushprops"></div>
+      <canvas id="brushDisplay" width="200" height="200"></canvas>
       <input id="hexinput" placeholder="hex id">
       <button id="addcolor" class="settingsbutton">Add Color</button>
       <input id="size" placeholder="brush size">
