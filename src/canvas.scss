@@ -1,32 +1,59 @@
 body {
   display: flex;
   flex-wrap: wrap;
-  background-color: gray;
+  justify-content: center;
+  background-color: gainsboro;
 }
 
 canvas {
   //position: relative;
   margin: 0 auto;
-  border: solid 1px black;
   background-color: white;
+}
+
+button {
+  display: inline;
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+}
+
+button:hover {
+  width: 80px;
+  height: 80px;
+  border: solid 4px white;
+  border-radius: 8px;
+  margin: -10px;
+  z-index: 100;
 }
 
 #toolboxes {
  // top: 0;
   //right: 0;
-  max-width: 400px;
-  border: solid 1px black;
+  width: 280px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
 }
 
 .toolbox {
-  display: block;
-  border: solid 1px black;
-  padding: 5px;
-  width: 380px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12px;
+  margin: 8px;
+  background-color: gray;
+  border-radius: 8px;
+  align-items: center;
+  width: inherit;
+}
+
+.settingsbutton {
+  width: auto;
 }
 
 .swatch {
-  display: inline;
-  width: 20px;
-  height: 20px;
+  border: none;
 }
+
+
+

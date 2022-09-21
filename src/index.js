@@ -105,8 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   let options = {
-    width: 800,
-    height: 800,
+    width: 900,
+    height: 1200,
     palette: currentPalette,
     brush: brushCollection.brushes[0],
     parent: docBody[0]
