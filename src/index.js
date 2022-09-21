@@ -12,8 +12,9 @@ const brushBox = document.getElementById("brushbox");
 const brushDisplay = document.getElementById("brushDisplay");
 const bCtx = brushDisplay.getContext('2d');
 
-const brushSettings = document.getElementById("brushsettings");
+const toolboxes = document.getElementById("toolboxes");
 const brushSize = document.getElementById("brushSize");
+const sliders = document.getElementById("colorSliders");
 const red = document.getElementById("red");
 const green = document.getElementById("green");
 const blue = document.getElementById("blue");
@@ -68,6 +69,11 @@ function loadPalette() { // reset palette box display
       paletteBox.appendChild(button);
       i++;
     });
+    let newColor = document.createElement("button");
+    newColor.id = "newcolor";
+    newColor.className = "swatch";
+    newColor.innerText = "+";
+    paletteBox.appendChild(newColor)
   }
 }  
 loadPalette();
@@ -156,7 +162,7 @@ function setBrushDisplay() {
   bCtx.fill();
 }
 
-brushSettings.addEventListener("change", (e) => {
+toolboxes.addEventListener("change", (e) => {
   //debugger;
   switch(e.target.id) {
     case "red":
@@ -175,12 +181,17 @@ brushSettings.addEventListener("change", (e) => {
     default:
       console.log("no brushsettings chagne cases hit")
   }
-})
+});
 
-brushSettings.addEventListener("click", (e) => {
+toolboxes.addEventListener("click", (e) => {
+  //debugger;
   switch(e.target.id) {
+    case "newcolor":
+      sliders.style.display === "none" ? sliders.style.display = "block" : sliders.style.display = "none";
+      break;
     case "addcolor":
-      currentPalette.addColor(rgb.value);
+      const rgbString = (`rgb(${red.value}, ${green.value}, ${blue.value})`)
+      currentPalette.addColor(rgbString);
       loadPalette();
       break;
     case "savebrush":

@@ -11,17 +11,9 @@
 <body>
   <h2 id="errorprompt"></h2>
   <div id="toolboxes">
-    <div id="palettebox" class="toolbox"></div>
-    <div id="brushbox" class="toolbox">brushbox</div>
-    <div id="brushsettings" class="toolbox">
-      <canvas id="brushDisplay" width="200" height="200"></canvas>
-      <input id="rgb" placeholder="rgb value">
-      <button id="addcolor" class="settingsbutton">Add Color</button>
+    <div id="palettebox" class="toolbox"></div> 
 
-      <div class="slider">
-        <input id="brushSlider" type="range" min="0" max="200" value="100" oninput="brushSize.value = this.value">
-        <input id="brushSize" class="displayInput" value="100">
-      </div>
+    <div id="colorSliders" style="display:none">
       <div class="slider">
         <input id="red" type="range" min="0" max="255" value="100">
       </div> 
@@ -30,12 +22,24 @@
       </div> 
       <div class="slider">
         <input id="blue" type="range" min="0" max="255" value="100">
-      </div> 
+      </div>
+      <button id="addcolor">add color</button>
+    </div>
+    
+    <div id="brushbox" class="toolbox">brushbox</div>
+    
+    <div id="brushsettings" class="toolbox">
+      <canvas id="brushDisplay" width="200" height="200"></canvas>
+      <div class="slider">
+        <input id="brushSlider" type="range" min="0" max="200" value="100" oninput="brushSize.value = this.value">
+        <input id="brushSize" class="displayInput" value="100">
+      </div>
       <!-- <input id="size" placeholder="brush size">
       <button id="brushsize" class="settingsbutton">Set Brush Size</button> -->
       <button id="savebrush" class="settingsbutton">Save Settings as Preset</button>
       <button id="reset" class="settingsbutton">Reset to Defaults</button>
     </div>
+
     <div id="layerbox" class="toolbox">
       <button id="save" class="settingsbutton">save</button>
     </div>
