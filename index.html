@@ -10,23 +10,22 @@
 </head>
 <body>
   <h2 id="errorprompt"></h2>
-  <!-- <canvas id="canvas">Canvas El</canvas> -->
-  <!-- replace with procedural canvas later? -->
   <div id="toolboxes">
     <div id="palettebox" class="toolbox"></div>
     <div id="brushbox" class="toolbox">brushbox</div>
     <div id="brushsettings" class="toolbox">
-      
+      <div id="brushsize" class="brushprops"></div>
+      <div id="brushcolor" class="brushprops"></div>
       <input id="hexinput" placeholder="hex id">
       <button id="addcolor" class="settingsbutton">Add Color</button>
       <input id="size" placeholder="brush size">
       <button id="brushsize" class="settingsbutton">Set Brush Size</button>
       <button id="savebrush" class="settingsbutton">Save Settings as Preset</button>
+      <button id="reset" class="settingsbutton">Reset to Defaults</button>
     </div>
     <div id="layerbox" class="toolbox">
-      <button id="save">save</button>
+      <button id="save" class="settingsbutton">save</button>
     </div>
-    
   </div>
 </body>
 </html>

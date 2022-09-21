@@ -15,14 +15,14 @@ canvas {
 
 button {
   display: inline;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   font-size: 20px;
 }
 
 button:hover {
-  width: 80px;
-  height: 80px;
+  width: 48px;
+  height: 48px;
   border: solid 4px white;
   border-radius: 8px;
   margin: -10px;
@@ -30,7 +30,7 @@ button:hover {
 }
 
 #toolboxes {
-  width: 280px;
+  width: 200px;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -49,6 +49,13 @@ button:hover {
 
 .settingsbutton {
   width: auto;
+  height: auto;
+  margin: -2px;
+}
+
+.settingsbutton:hover {
+  width: auto;
+  height: auto;
 }
 
 .swatch {

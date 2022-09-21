@@ -10,6 +10,7 @@ class WorkSpace {
     options.parent.appendChild(this.base);
 
     this.palette = options.palette;
+    //debugger;
     this.brush = Object.assign({}, options.brush);
     this.selected = true;
     this.penPos = {
@@ -23,7 +24,10 @@ class WorkSpace {
     addEventListener("mousedown", this.setPosition.bind(this))
     addEventListener("mousenter", this.setPosition.bind(this))
 
-    // const pointerEvents = [ //pointer events for pressure
+    // const events = [ //pointer events for pressure
+    //   "mousemove",
+    //   "mousedown",
+    //   "mousenter",
     //   'pointerdown',
     //   'pointerup',
     //   'pointercancel',
@@ -35,6 +39,11 @@ class WorkSpace {
     //   'gotpointercapture',
     //   'lostpointercapture'
     // ];
+
+    // for (let i = 0; i < events.length; i++) {
+    //   addEventListener(events[i], this.draw.bind(this));
+    // }
+
   }
   
   setPosition(e) {
@@ -49,6 +58,8 @@ class WorkSpace {
     //let color = document.getElementById("hexinput").value; // choose color 
     let color = this.palette.activeColor;
     let size = this.brush.size;
+
+    //let pressure = e.pressure;
 
     this.context.beginPath();
 

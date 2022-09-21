@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
       name: brushCollection.name,
       brushes: brushSizes
     }))
+
     if (brushes.length > 0) {
       brushBox.textContent = '';
       i = 0;
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
   brushBox.addEventListener('click', (e) => {
     e.preventDefault();
     console.log("changing size");
-    workSpace.brush = brushCollection.brushes[e.target.data];
+    workSpace.brush = Object.assign({}, brushCollection.brushes[e.target.data]);
  });
 
   const buttonMap = {
@@ -106,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let options = {
     width: 900,
-    height: 1200,
+    height: 900,
     palette: currentPalette,
     brush: brushCollection.brushes[0],
     parent: docBody[0]
@@ -138,13 +139,18 @@ document.addEventListener("DOMContentLoaded", function () {
         loadPalette();
         break;
       case "brushsize":
-        workSpace.brush.size = brushSize.value;
+        debugger;
+        workSpace.brush.size = Number(brushSize.value);
+        loadBrushBox();
         break;
       case "savebrush":
         brushCollection.addBrush({
-          size: brushSize.value
+          size: Number(brushSize.value)
         })
         loadBrushBox();
+        break;
+      case "reset":
+        localStorage.clear();
         break;
       default:
         console.log("no brushsettings cases hit")
