@@ -25,10 +25,10 @@ const supportsPointerEvents = window.PointerEvent;
 // set up default palette & brush box
 const defaultPalette = new Palette({
   name: "default", 
-  colors: [
+  colors: [ 
     "hsl(0, 100%, 50%)", 
     "hsl(0, 100%, 100%)", 
-    "hsl(0, 0%, 0%)", 
+    "hsl(0, 0%, 0%)"
   ]
 });
 
@@ -55,10 +55,21 @@ savedBrushSettings.brushes.forEach((brush) => {
 })
 
 function loadPalette() { // reset palette box display
+  //debugger;
   colors = currentPalette.colors;
   localStorage.setItem("palette", JSON.stringify(currentPalette));
+  let eraser = document.createElement("button");
+
   if (colors.length > 0) {
     paletteBox.textContent = '';
+
+    eraser.id = "swatch0";
+    eraser.className = "swatch";
+    eraser.style.border = "solid 1px white";
+    eraser.color = "rgba(0, 0, 0, 0)";
+    eraser.style.backgroundColor = "background-color: rgb(255, 247, 219)";
+    paletteBox.appendChild(eraser)
+
     i = 1;
     colors.forEach((color) => {
       let button = document.createElement("button");
@@ -145,19 +156,24 @@ setBrushDisplay();
 
 function saveFile() { // need to bind to context?
   //debugger;
-  const canvas = document.getElementById("base")
+  const link = document.getElementById("link")
   console.log("inside saveFile")
-  console.log(canvas);
-  
-  //canvas.toBlob()
-  const buffer = canvas.toBuffer("image/png");
-  fs.writeFileSync('./createdImages/image.png', buffer);
+  //console.log(canvas);
+  link.setAttribute('download', 'minxel.png');
+  link.setAttribute('href', workSpace.base.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+  link.click();
+  // const buffer = canvas.toBuffer("image/png");
+  // fs.writeFileSync('./createdImages/image.png', buffer);
 
   // toBlob(callback, type)
 } 
 
 function hslExtract(color) {
-
+// -cut off string at parens
+// -remove spaces
+// -remove %
+// -split on commas
+// -should now have array of 3 (hsl) or 4 (hsvl) values
 }
 
 function setBrushDisplay() {
@@ -198,7 +214,7 @@ toolboxes.addEventListener("input", (e) => {
 toolboxes.addEventListener("click", (e) => {
   switch(e.target.id) {
     case "newcolor":
-      sliders.style.display === "none" ? sliders.style.display = "block" : sliders.style.display = "none";
+      sliders.style.display === "block" ? sliders.style.display = "none" : sliders.style.display = "block";
       break;
       case "addcolor":
       const rgbString = (`hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`);
@@ -218,6 +234,8 @@ toolboxes.addEventListener("click", (e) => {
         //setBrushDisplay();
         window.location.reload();
       break;
+    case "save":
+      saveFile();
     default:
       console.log(e.target.id);
   }
