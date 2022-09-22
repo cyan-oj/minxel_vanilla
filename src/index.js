@@ -229,9 +229,6 @@ toolboxes.addEventListener("click", (e) => {
       break;
     case "reset":
         localStorage.clear();
-        //loadBrushBox();
-        //loadPalette();
-        //setBrushDisplay();
         window.location.reload();
       break;
     case "save":

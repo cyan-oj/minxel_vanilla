@@ -46,9 +46,60 @@ draw(e) {
 	this.context.stroke(); 
 }
 ```
+two event listeners handle updating the display when changes are made to brush settings:
+
+```javascript
+toolboxes.addEventListener("input", (e) => { 
+  switch(e.target.id) {
+    case "hue":
+    case "saturation":
+    case "lightness":
+      const rgbString = (`hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`)
+      workSpace.palette.activeColor = rgbString;
+      setBrushDisplay();
+      break;
+    case "brushSlider":
+      workSpace.brush.size = Number(brushSlider.value);
+      setBrushDisplay();
+      break;
+    default:
+      console.log("no brushsettings chagne cases hit")
+    }
+});
+
+toolboxes.addEventListener("click", (e) => {
+  switch(e.target.id) {
+    case "newcolor":
+      sliders.style.display === "block" ? sliders.style.display = "none" : sliders.style.display = "block";
+      break;
+      case "addcolor":
+      const rgbString = (`hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`);
+      currentPalette.addColor(rgbString);
+      loadPalette();
+      break;
+    case "savebrush":
+      brushCollection.addBrush({
+        size: Number(brushSlider.value)
+      });
+      loadBrushBox();
+      break;
+    case "reset":
+        localStorage.clear();
+        window.location.reload();
+      break;
+    case "save":
+      saveFile();
+    default:
+      console.log(e.target.id);
+  }
+});
+```
+brushes are objects, currently they only hold one property, but as more features are added, the brush properties can control more effects:
+
+
 
 #### todo
 - pen pressure via HTML5 pointer events
 - fix and re-add eraser
 - brushstroke history to alow for undoing/redoing actions
-- 
+- bind giflib for more 
