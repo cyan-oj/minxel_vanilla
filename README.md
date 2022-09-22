@@ -21,7 +21,13 @@ to save your work as a .png file, hit `save`.
 the draw function relies on the HTML5 `canvas`. a `mousemove` eventlistener on the canvas triggers the `draw(event)` function. when the user clicks on the canvas, the function is called continously to draw a path between the two most recent positions.
 
 ```javascript
-// 
+// within the Workspace object that holds the drawing canvas
+setPosition(e) {
+	let box = this.base.getBoundingClientRect();
+	this.penPos.x = e.clientX - box.left;
+	this.penPos.y = e.clientY - box.top;
+}
+
 draw(e) {
 	if (e.buttons !== 1) return; //skip if mouse not held down
 
@@ -40,3 +46,9 @@ draw(e) {
 	this.context.stroke(); 
 }
 ```
+
+#### todo
+- pen pressure via HTML5 pointer events
+- fix and re-add eraser
+- brushstroke history to alow for undoing/redoing actions
+- 

@@ -58,17 +58,17 @@ function loadPalette() { // reset palette box display
   //debugger;
   colors = currentPalette.colors;
   localStorage.setItem("palette", JSON.stringify(currentPalette));
-  let eraser = document.createElement("button");
-
+  
   if (colors.length > 0) {
     paletteBox.textContent = '';
-
-    eraser.id = "swatch0";
-    eraser.className = "swatch";
-    eraser.style.border = "solid 1px white";
-    eraser.color = "rgba(0, 0, 0, 0)";
-    eraser.style.backgroundColor = "background-color: rgb(255, 247, 219)";
-    paletteBox.appendChild(eraser)
+    
+    // let eraser = document.createElement("button");
+    // eraser.id = "swatch0";
+    // eraser.className = "swatch";
+    // eraser.style.border = "solid 1px white";
+    // eraser.color = "hsla(0, 0%, 0%, 0)";
+    // eraser.style.backgroundColor = "background-color: rgb(255, 247, 219)";
+    // paletteBox.appendChild(eraser)
 
     i = 1;
     colors.forEach((color) => {
