@@ -14,6 +14,7 @@ const bCtx = brushDisplay.getContext('2d');
 
 const toolboxes = document.getElementById("toolboxes");
 const sliders = document.getElementById("colorSliders");
+const sizeSlider = document.getElementById("brushSlider");
 const red = document.getElementById("red");
 const green = document.getElementById("green");
 const blue = document.getElementById("blue");
@@ -137,6 +138,8 @@ let options = {
 // set up initial canvas
 const workSpace = new WorkSpace(options); 
 
+const biggestSide = options.width > options.height ? options.width : options.height;
+sizeSlider.max = Math.floor(biggestSide/2);
 setBrushDisplay();
 
 function saveFile() { // need to bind to context?
@@ -156,7 +159,7 @@ function setBrushDisplay() {
   brushSlider.value = Number(workSpace.brush.size);
   let radius = Math.ceil(Number(workSpace.brush.size))/2;
   let color = workSpace.palette.activeColor;
-  bCtx.clearRect(0, 0, 200, 200)
+  bCtx.clearRect(0, 0, 160, 240)
   bCtx.beginPath();
   bCtx.fillStyle = color;
   //debugger;
