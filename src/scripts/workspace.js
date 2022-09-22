@@ -9,7 +9,6 @@ class WorkSpace {
     options.parent.appendChild(this.base);
 
     this.palette = options.palette;
-    //debugger;
     this.brush = Object.assign({}, options.brush);
     this.selected = true;
     this.penPos = {
@@ -46,19 +45,16 @@ class WorkSpace {
   }
   
   setPosition(e) {
-    //debugger;
     let box = this.base.getBoundingClientRect();
     this.penPos.x = e.clientX - box.left;
     this.penPos.y = e.clientY - box.top;
   }
 
   draw(e) {
-    if (e.buttons !== 1) return; // exits early if mouse is not pressed
-    //let color = document.getElementById("hexinput").value; // choose color 
-    let color = this.palette.activeColor;
-    let size = this.brush.size;
+    if (e.buttons !== 1) return; //skip if mouse not held down
 
-    //let pressure = e.pressure;
+    const color = this.palette.activeColor;
+    const size = this.brush.size;
 
     this.context.beginPath();
 
