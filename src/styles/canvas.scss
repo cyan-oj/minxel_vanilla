@@ -1,0 +1,117 @@
+body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: rgb(255, 247, 219);
+  font-family: 'Courier New', Courier, monospace;
+  color: rgb(59, 55, 55);
+  margin: 0px 0px 0px 0px;
+}
+
+canvas {
+  //position: relative;
+  margin: auto;
+  margin-top: 12px;
+  background-color: white;
+  filter: drop-shadow(0 1mm 1.2mm rgb(0, 0, 0, .4));
+}
+
+svg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 24%;
+}
+
+button {
+  display: inline;
+  width: 36px;
+  height: 36px;
+  margin: 2px;
+  font-size: 20px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, .4);
+  border: solid 1px white;
+  filter: drop-shadow(0 1mm 1.2mm rgb(0, 0, 0, .4));
+  color: inherit;
+  font-family: inherit;
+  //filter: drop-shadow(0 0 1.5mm rgb(255, 255, 255));
+}
+
+button:hover {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  margin: -4px;
+  z-index: 100;
+  cursor: pointer;
+  background-color: rgb(229, 238, 238);
+}
+
+button.settingsbutton {
+  width: auto;
+  display: block;
+  height: 28px;
+  margin: 12px auto 12px auto;
+  filter: drop-shadow(0 1mm 1.2mm rgb(255, 255, 255, .4));
+}
+
+button.swatch {
+  border: none;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  filter: none;
+}
+
+button.swatch:hover {
+  border: none;
+  width: 48px;
+  height: 48px;
+  margin: -4px;
+  filter: none;
+}
+
+#toolboxes {
+  width: 160px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  margin: 24px
+}
+
+.toolbox {
+  display: flex;
+  flex-wrap: wrap;
+  //padding: 12px;
+  margin: 8px 0px 8px 0px;
+  align-items: center;
+  width: inherit;
+}
+
+#brushsettings {
+  position: relative;
+}
+
+div#sizeSettings {
+  position: absolute;
+  bottom: 15px;
+  z-index: 100;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#sizedisplay {
+  display: block;
+}
+
+canvas#brushDisplay {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, .4);
+  //filter: drop-shadow(0 1mm 1.2mm rgb(0, 0, 0, .4));
+  border: solid 1px white;
+}
+
+

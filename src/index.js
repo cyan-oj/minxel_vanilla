@@ -13,14 +13,12 @@ const brushDisplay = document.getElementById("brushDisplay");
 const bCtx = brushDisplay.getContext('2d');
 
 const toolboxes = document.getElementById("toolboxes");
+
 const sliders = document.getElementById("colorSliders");
 const sizeSlider = document.getElementById("brushSlider");
-const red = document.getElementById("red");
-const green = document.getElementById("green");
-const blue = document.getElementById("blue");
-
-const saveButton = document.getElementById("save");
-saveButton.addEventListener("click", saveFile);
+const hue = document.getElementById("hue");
+const saturation = document.getElementById("saturation");
+const lightness = document.getElementById("lightness");
 
 const supportsPointerEvents = window.PointerEvent;
 
@@ -28,7 +26,9 @@ const supportsPointerEvents = window.PointerEvent;
 const defaultPalette = new Palette({
   name: "default", 
   colors: [
-    "black", "white", "red"
+    "hsl(0, 100%, 50%)", 
+    "hsl(0, 100%, 100%)", 
+    "hsl(0, 0%, 0%)", 
   ]
 });
 
@@ -75,7 +75,8 @@ function loadPalette() { // reset palette box display
     newColor.innerText = "+";
     paletteBox.appendChild(newColor)
   }
-}  
+}
+//debugger;  
 loadPalette();
 
 paletteBox.addEventListener('click', (e) => { // change color on click
@@ -143,7 +144,7 @@ sizeSlider.max = Math.floor(biggestSide/2);
 setBrushDisplay();
 
 function saveFile() { // need to bind to context?
-  debugger;
+  //debugger;
   const canvas = document.getElementById("base")
   console.log("inside saveFile")
   console.log(canvas);
@@ -155,8 +156,13 @@ function saveFile() { // need to bind to context?
   // toBlob(callback, type)
 } 
 
+function hslExtract(color) {
+
+}
+
 function setBrushDisplay() {
   brushSlider.value = Number(workSpace.brush.size);
+
   let radius = Math.ceil(Number(workSpace.brush.size))/2;
   let color = workSpace.palette.activeColor;
   bCtx.clearRect(0, 0, 160, 240)
@@ -167,52 +173,52 @@ function setBrushDisplay() {
   bCtx.fill();
 }
 
-toolboxes.addEventListener("change", (e) => {
+toolboxes.addEventListener("input", (e) => {
   //debugger;
   switch(e.target.id) {
-    case "red":
-    case "blue":
-    case "green":
-      const rgbString = (`rgb(${red.value}, ${green.value}, ${blue.value})`)
+    case "hue":
+    case "saturation":
+    case "lightness":
+      const rgbString = (`hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`)
       workSpace.palette.activeColor = rgbString;
       setBrushDisplay();
-      loadPalette();
+      //loadPalette();
       break;
     case "brushSlider":
       //debugger;
       workSpace.brush.size = Number(brushSlider.value);
-      loadBrushBox();
+      //loadBrushBox();
       setBrushDisplay();
       break;
-      default:
+    default:
       console.log("no brushsettings chagne cases hit")
     }
 });
 
 toolboxes.addEventListener("click", (e) => {
-  //debugger;
   switch(e.target.id) {
     case "newcolor":
       sliders.style.display === "none" ? sliders.style.display = "block" : sliders.style.display = "none";
       break;
       case "addcolor":
-      const rgbString = (`rgb(${red.value}, ${green.value}, ${blue.value})`)
+      const rgbString = (`hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`);
       currentPalette.addColor(rgbString);
       loadPalette();
       break;
     case "savebrush":
       brushCollection.addBrush({
         size: Number(brushSlider.value)
-      })
+      });
       loadBrushBox();
       break;
-      case "reset":
+    case "reset":
         localStorage.clear();
-        loadBrushBox();
-        loadPalette();
-        setBrushDisplay();
+        //loadBrushBox();
+        //loadPalette();
+        //setBrushDisplay();
+        window.location.reload();
       break;
     default:
-      console.log("no brushsettings cases hit")
+      console.log(e.target.id);
   }
 });
