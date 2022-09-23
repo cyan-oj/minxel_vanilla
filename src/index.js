@@ -2,8 +2,6 @@
 const WorkSpace = require("./scripts/workspace");
 const Palette = require("./scripts/palette.js");
 const BrushCollection = require("./scripts/brushcollection.js");
-const fs = require("fs");
-const { toBuffer } = require('canvas');
 
 const docBody = document.getElementsByTagName("body");
 const paletteBox = document.getElementById("palettebox");
@@ -55,20 +53,11 @@ savedBrushSettings.brushes.forEach((brush) => {
 })
 
 function loadPalette() { // reset palette box display
-  //debugger;
   colors = currentPalette.colors;
   localStorage.setItem("palette", JSON.stringify(currentPalette));
   
   if (colors.length > 0) {
     paletteBox.textContent = '';
-    
-    // let eraser = document.createElement("button");
-    // eraser.id = "swatch0";
-    // eraser.className = "swatch";
-    // eraser.style.border = "solid 1px white";
-    // eraser.color = "hsla(0, 0%, 0%, 0)";
-    // eraser.style.backgroundColor = "background-color: rgb(255, 247, 219)";
-    // paletteBox.appendChild(eraser)
 
     i = 1;
     colors.forEach((color) => {
@@ -154,18 +143,12 @@ const biggestSide = options.width > options.height ? options.width : options.hei
 sizeSlider.max = Math.floor(biggestSide/2);
 setBrushDisplay();
 
-function saveFile() { // need to bind to context?
-  //debugger;
+function saveFile() {
   const link = document.getElementById("link")
   console.log("inside saveFile")
-  //console.log(canvas);
   link.setAttribute('download', 'minxel.png');
   link.setAttribute('href', workSpace.base.toDataURL("image/png").replace("image/png", "image/octet-stream"));
   link.click();
-  // const buffer = canvas.toBuffer("image/png");
-  // fs.writeFileSync('./createdImages/image.png', buffer);
-
-  // toBlob(callback, type)
 } 
 
 function hslExtract(color) {
@@ -190,7 +173,6 @@ function setBrushDisplay() {
 }
 
 toolboxes.addEventListener("input", (e) => {
-  //debugger;
   switch(e.target.id) {
     case "hue":
     case "saturation":
@@ -198,12 +180,9 @@ toolboxes.addEventListener("input", (e) => {
       const rgbString = (`hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`)
       workSpace.palette.activeColor = rgbString;
       setBrushDisplay();
-      //loadPalette();
       break;
     case "brushSlider":
-      //debugger;
       workSpace.brush.size = Number(brushSlider.value);
-      //loadBrushBox();
       setBrushDisplay();
       break;
     default:

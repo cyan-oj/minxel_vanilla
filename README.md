@@ -94,8 +94,7 @@ toolboxes.addEventListener("click", (e) => {
   }
 });
 ```
-brushes are objects, currently they only hold one property, but as more features are added, the brush properties can control more effects:
-
+brushes are objects, currently they only hold one property, but as more features are added, the brush properties can control more effects.
 
 
 #### todo

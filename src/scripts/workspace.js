@@ -21,27 +21,6 @@ class WorkSpace {
     addEventListener("mousemove", this.draw.bind(this))
     addEventListener("mousedown", this.setPosition.bind(this))
     addEventListener("mousenter", this.setPosition.bind(this))
-
-    // const events = [ //pointer events for pressure
-    //   "mousemove",
-    //   "mousedown",
-    //   "mousenter",
-    //   'pointerdown',
-    //   'pointerup',
-    //   'pointercancel',
-    //   'pointermove',
-    //   'pointerover',
-    //   'pointerout',
-    //   'pointerenter',
-    //   'pointerleave',
-    //   'gotpointercapture',
-    //   'lostpointercapture'
-    // ];
-
-    // for (let i = 0; i < events.length; i++) {
-    //   addEventListener(events[i], this.draw.bind(this));
-    // }
-
   }
   
   setPosition(e) {

@@ -9,7 +9,6 @@ body {
 }
 
 canvas {
-  //position: relative;
   margin: auto;
   margin-top: 32px;
   background-color: rgba(255, 255, 255, .4);
@@ -36,7 +35,7 @@ button {
   filter: drop-shadow(0 1mm 1.2mm rgb(0, 0, 0, .4));
   color: inherit;
   font-family: inherit;
-  //filter: drop-shadow(0 0 1.5mm rgb(255, 255, 255));
+
 }
 
 button:hover {
@@ -84,7 +83,6 @@ button.swatch:hover {
 .toolbox {
   display: flex;
   flex-wrap: wrap;
-  //padding: 12px;
   margin: 8px 0px 8px 0px;
   align-items: center;
   width: inherit;
@@ -110,7 +108,6 @@ div#sizeSettings {
 canvas#brushDisplay {
   border-radius: 4px;
   background-color: rgba(255, 255, 255, .4);
-  //filter: drop-shadow(0 1mm 1.2mm rgb(0, 0, 0, .4));
   border: solid 1px white;
 }
 

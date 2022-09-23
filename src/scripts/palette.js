@@ -7,7 +7,7 @@ class Palette {
   }
 
 
-  // color options - rgba value, desired color position from 0-15
+  // color options - hsl value
   
   addColor(color) {
     console.log("from Palette adding color")
